@@ -28,6 +28,6 @@ if __name__ == "__main__":
             p.start()
         for proc in procs: 
             proc.join()
-        time.sleep(0.5)
+        time.sleep(0.1)
     #
     print("--- %s seconds ---" % (time.time() - start_time))
