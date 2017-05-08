@@ -1,8 +1,12 @@
 import threading
 import requests as r
 import os
+import time
+import time
 
 URL = 'http://ctf.slothparadise.com/about.php'
+
+lock = threading.Lock()
 
 class myThread(threading.Thread):
     def __init__(self, ID, name, count):
@@ -12,13 +16,19 @@ class myThread(threading.Thread):
         self.counter = count
 
     def run(self):
+        lock.acquire()
         get = r.get(URL)
-        print(str(i) + ' Reloads')
+        lock.release()
+        #print(str(self.threadID) + ' Reloads')
         if 'KEY' in get.text:
             print(get.text)
             os._exit(1)
-
+        
+threads = list()
 for i in range(1000):
     thread = myThread(i, "Thread " + str(i), i)
+    threads.append(thread)
     thread.start()
-    thread.join()
+
+for t in threads:
+    t.join()
