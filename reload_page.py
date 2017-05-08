@@ -1,6 +1,6 @@
 import threading
 import requests as r
-import sys
+import os
 
 URL = 'http://ctf.slothparadise.com/about.php'
 
@@ -16,7 +16,7 @@ class myThread(threading.Thread):
         print(str(i) + ' Reloads')
         if 'KEY' in get.text:
             print(get.text)
-            sys.exit(0)
+            os._exit(1)
 
 for i in range(1000):
     thread = myThread(i, "Thread " + str(i), i)
